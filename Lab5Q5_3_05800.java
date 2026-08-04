@@ -1,0 +1,22 @@
+public class Lab5Q5_3_05800
+{
+	public static void main(String[] args)
+	{
+		if (args.length != 1)
+		{
+			System.out.println("Require at only 1 argument.");
+			return ;
+		}
+
+		int n = Integer.parseInt(args[0]);
+
+		for (int i = 1; i <= n; i++)
+		{
+			for (int j = i; j < n; j++)
+				System.out.print(' ');
+			for (int j = 1; j <= (2 * i - 1); j++)
+				System.out.print('P');
+			System.out.println();
+		}
+	}
+}
