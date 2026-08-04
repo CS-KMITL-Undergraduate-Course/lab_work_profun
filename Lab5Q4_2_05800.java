@@ -5,7 +5,10 @@ public class Lab5Q4_2_05800 {
 	public static void main(String[] args)
 	{
 		if (args.length != 1)
+		{
 			System.out.println("Require at least 1 argument.");
+			return ;
+		}
 
 		int index = -1;
 

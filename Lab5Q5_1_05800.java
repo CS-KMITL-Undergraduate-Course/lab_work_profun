@@ -16,7 +16,10 @@ public class Lab5Q5_1_05800
 	public static void main(String[] args)
 	{
 		if (args.length != 1)
+		{
 			System.out.println("Require at only 1 argument.");
+			return;
+		}
 
 		int n = Integer.parseInt(args[0]);
 
