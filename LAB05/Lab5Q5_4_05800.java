@@ -1,3 +1,4 @@
+package LAB05;
 public class Lab5Q5_4_05800
 {
 	static void printPyramin(int emptySpace, int start_index, int end_index)

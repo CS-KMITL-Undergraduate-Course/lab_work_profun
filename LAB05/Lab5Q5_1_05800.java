@@ -1,3 +1,4 @@
+package LAB05;
 public class Lab5Q5_1_05800 
 {
 	static void printx(int length, int space_index)
