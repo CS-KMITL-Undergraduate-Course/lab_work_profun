@@ -1,9 +1,9 @@
-public class Lab08_Q4_1_050800
+public class ProFun08_Q4_1_050800
 {
     public static void  main(String[] args)
     {
         int arr2[] = new int[args.length];
-        int i = args.length / 2; 
+        int i = args.length / 2;
         int j = args.length / 2 + 1;
         int k = 0;
 
@@ -11,7 +11,7 @@ public class Lab08_Q4_1_050800
         {
             int square1 = Integer.parseInt(args[i]) * Integer.parseInt(args[i]);
             int square2 = Integer.parseInt(args[j]) * Integer.parseInt(args[j]);
- 
+
             if (square1 < square2)
             {
                 arr2[k++] = square1;

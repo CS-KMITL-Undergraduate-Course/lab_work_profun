@@ -1,4 +1,4 @@
-public class Lab08_Q3_1_050800 
+public class ProFun08_Q3_1_050800800
 {
     static boolean q3_common_element(int[] a, int[] b)
     {
@@ -16,7 +16,7 @@ public class Lab08_Q3_1_050800
                 ++j;
         }
         return (false);
-    }  
+    }
 
     public static void main(String[] args)
     {
