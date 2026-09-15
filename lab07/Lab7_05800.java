@@ -11,15 +11,25 @@ public class Lab7_05800
 
 	static int	q2_1_myIndexOf(String str, String sub)
 	{
-		for (int i = 0; i < str.length() - sub.length(); i++)
-		{	
-			for (int j = 0; j < sub.length(); j++)
+		int str_len = str.length();
+		int sub_len = sub.length();
+
+		if (str_len < sub_len)
+			return (-1);
+
+		int i = sub_len - 1;
+
+		while (i < str_len)
+		{
+			int j = sub_len;
+
+			while (j >= 0 && str.charAt(i - sub_len + j) == sub.charAt(j - 1))
 			{
-				if (str.charAt(i + j) != sub.charAt(j))
-					break;
-				if (j + 1 == sub.length())
-					return (i);
+				if (j - 2 < 0)
+					return (i - sub_len + 1);
+				--j;
 			}
+
 		}
 		return (-1);
 	}
