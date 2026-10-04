@@ -70,6 +70,24 @@ public class ProFun11_050800
 		return (markMap);
 	}
 
+	static int parkingFee_v2(int hrIn int minIn, int hrOut int minOut, boolean hasCoupon)
+	{
+		int hours = hrOut - hrIn;
+		hours += (minOut - minIn <= 60) ? 1 : 2;
+
+		if (hasCoupon)
+		{
+			hours -= 1;
+			int fee = (hours <= 2 ? hours * 40 : 80);
+			fee += (hours % 2) * 30;
+		}
+		else
+		{
+			int fee = (hours <= 2 ? )
+		}
+		return (fee);
+	}
+
     public static void main(String[] args)
     {
         int[]   leap = {1, 10, 8};
