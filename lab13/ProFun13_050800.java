@@ -78,6 +78,84 @@ class ReadFile
 			System.out.println(token);
 		}
 	}
+
+	static void	demo3()
+	{
+		ArrayList<ArrayList<String>> token = new ArrayList<ArrayList<String>>();
+
+		try (Scanner input = new Scanner(Paths.get("./movies2.csv")))
+		{	
+			String row;
+			
+			while (input.hasNext())
+			{
+				row = input.nextLine();
+				String[] dataFields = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+				String title = dataFields[0];
+				int	releaseYear;	
+				if (dataFields[1].matches("\\d+"))
+					releaseYear = Integer.parseInt(dataFields[1]);
+				else
+				{
+					continue;
+				}
+				Double	rating = Double.parseDouble(dataFields[2]);	
+				Movie movie = new Movie(title, releaseYear, rating);
+				System.out.println(movie);
+			}
+		}
+		catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
+		{
+			System.err.printf("Data format eror: %s%n", e);
+		}
+		catch (IOException e)
+		{
+			System.err.printf("I/O Error: %s%n", e);
+			e.printStackTrace();
+		}
+		finally
+		{
+			System.out.println(token);
+		}
+	}
+
+	static void demo4()
+	{
+		int rowNum = 1;
+		ArrayList<Movie> movies = new ArrayList<Movie>();
+
+		try (Scanner input = new Scanner(Paths.get("./movies.csv")))
+		{
+			while (input.hasNext())
+			{
+				String row = input.nextLine();
+				String[] tokens = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+				try
+				{
+					Movie movie = new Movie(tokens[0], Integer.parseInt(tokens[1]), Double.parseDouble(tokens[2]));
+					movies.add(movie);
+				}
+				catch (NumberFormatException nfe)
+				{
+					System.out.println("At row " + rowNum + ", exception name is " + nfe + "... skip");
+				}
+				finally
+				{
+					rowNum++;
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			for (Movie movie : movies)
+				System.out.println(movie);
+		}
+	}
 }
 
 class Movie
@@ -115,6 +193,66 @@ class Movie
 	}
 }
 
+class MovieCounter
+{
+	ArrayList<Movie> availableList = new ArrayList<Movie>();
+	ArrayList<Movie> checkOutList = new ArrayList<Movie>();
+
+	MovieCounter()
+	{
+		int rowNum = 1;
+
+		try (Scanner input = new Scanner(Paths.get("./movies2.csv")))
+		{
+			while (input.hasNext())
+			{
+				String row = input.nextLine();
+				String[] tokens = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+				try
+				{
+					Movie movie = new Movie(tokens[0], Integer.parseInt(tokens[1]), Double.parseDouble(tokens[2]));
+					availableList.add(movie);
+				}
+				catch (NumberFormatException nfe)
+				{
+					System.out.println("At row " + rowNum + ", exception name is " + nfe + "... skip");
+				}
+				finally
+				{
+					rowNum++;
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			for (Movie movie : availableList)
+				System.out.println(movie);
+		}
+	}
+
+	void	showAvailableList()
+	{
+		for (Movie movie : availableList)
+			System.out.println(movie);
+	}
+
+	void	showCheckoutList()
+	{
+		for (Movie movie : checkOutList)
+			System.out.println(movie);
+	}
+
+	void	checkout(int index)
+	{
+		checkOutList.add(availableList.remove(index));
+	}	
+}
+
 public class ProFun13_050800
 {
 	public static void main(String[] args)
@@ -123,5 +261,19 @@ public class ProFun13_050800
 		ReadFile.demo1();
 		System.out.println("Demo2");
 		ReadFile.demo2();
+		System.out.println("Demo3");
+		ReadFile.demo3();
+		System.out.println("Demo4");
+		ReadFile.demo4();
+
+		MovieCounter location1 = new MovieCounter();
+		MovieCounter location2 = new MovieCounter();
+
+		System.out.println("Location 1");
+		location1.showAvailableList();
+
+		location1.checkout(1);
+		System.out.println("Location 1");
+		location1.showCheckoutList();
 	}
 }
