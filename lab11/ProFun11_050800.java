@@ -70,22 +70,49 @@ public class ProFun11_050800
 		return (markMap);
 	}
 
-	static int parkingFee_v2(int hrIn int minIn, int hrOut int minOut, boolean hasCoupon)
+	static int parkingFee_v2(int hrIn, int minIn, int hrOut, int minOut, boolean hasCoupon)
 	{
-		int hours = hrOut - hrIn;
-		hours += (minOut - minIn <= 60) ? 1 : 2;
+		int totalMins = (hrOut - hrIn) * 60 + (minOut - minIn);
 
 		if (hasCoupon)
 		{
-			hours -= 1;
-			int fee = (hours <= 2 ? hours * 40 : 80);
-			fee += (hours % 2) * 30;
+			if (totalMins <= 60)
+			{
+				return 0;
+			}
+
+			if (totalMins <= 180)
+			{
+				return 80;
+			}
+
+			int extraMins = totalMins - 180;
+			int blocks = (int) Math.ceil(extraMins / 30.0);
+			return 80 + (blocks * 30);
+
 		}
 		else
 		{
-			int fee = (hours <= 2 ? )
+			if (totalMins <= 15)
+			{
+				return 0;
+			}
+
+			if (totalMins <= 120)
+			{
+				if (totalMins <= 105)
+				{
+					int billableMins = totalMins - 15;
+					int blocks = (int) Math.ceil(billableMins / 30.0);
+					return blocks * 20;
+				}
+				return 80;
+			}
+
+			int extraMins = totalMins - 120;
+			int blocks = (int) Math.ceil(extraMins / 30.0);
+			return 80 + (blocks * 30);
 		}
-		return (fee);
 	}
 
     public static void main(String[] args)
@@ -100,7 +127,11 @@ public class ProFun11_050800
             track[rewards[i][0]] = rewards[i][1];
         }
         q2_toi0_68_02_024(leap, track, dist);
-
-
+		System.out.println("Parking fee: " + parkingFee_v2(8, 15, 8, 25, false));
+		System.out.println("Parking fee: " + parkingFee_v2(8, 15, 10, 25, true));
+		System.out.println("Parking fee: " + parkingFee_v2(8, 15, 10, 25, false));
+		System.out.println("Parking fee: " + parkingFee_v2(8, 15, 12, 10, true));
+		System.out.println("Parking fee: " + parkingFee_v2(8, 15, 12, 10, false));
+		System.out.println("Parking fee: " + parkingFee_v2(8, 15, 9, 5, true));
     }
 }
